@@ -5,7 +5,7 @@ const commentController = {
   addComment({ params, body }, res) {
     console.log(body);
     Comment.create(body)
-      .then(({_id}) => {
+      .then(({ _id }) => {
         return Pizza.findOneAndUpdate(
           { _id: params.pizzaId },
           { $push: { comments: _id } },
@@ -23,11 +23,12 @@ const commentController = {
   },
 
   // remove comment
-  removeComment({ params }) {
+  removeComment({ params }, res) {
     Comment.findOneAndDelete({ _id: params.commentId })
       .then(deletedComment => {
         if(!deletedComment) {
-          return res.status(404).json({ comment: 'No comment with this id!' });
+          res.status(404).json({ comment: 'No comment with this id!' });
+          return;
         }
         return Pizza.findOneAndUpdate(
           { _id: params.pizzaId }, 
@@ -37,7 +38,8 @@ const commentController = {
       })
       .then(dbPizzaData => {
         if (!dbPizzaData) {
-          return res.status(404).json({ comment: 'No pizza with this id!' });
+          res.status(404).json({ comment: 'No pizza with this id!' });
+          return;
         }
         res.json(dbPizzaData);
       })
