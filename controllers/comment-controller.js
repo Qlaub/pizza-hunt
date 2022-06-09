@@ -1,6 +1,4 @@
 const { Comment, Pizza } = require('../models');
-const { update } = require('../models/Pizza');
-const { param } = require('../routes');
 
 const commentController = {
   // add comment to pizza
