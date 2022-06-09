@@ -14,10 +14,10 @@ const ReplySchema = new Schema(
     writtenBy: {
       type: String
     },
-    CreatedAt: {
+    createdAt: {
       type: Date,
       default: Date.now,
-      get: createdAtVal => dateFormat(createdAtVal)
+      get: (createdAtVal) => dateFormat(createdAtVal)
     }
   },
   {
